@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) { // 받은 순간
+                        Log.d("태그","onResponse 진입");
                         dialog.dismiss(); // 다이얼로그를 없애고
                         try {
                             JSONArray array = new JSONArray(response);
@@ -73,8 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 };
 
                 // node.js 서버에 요청
-
-                StringRequest dht11 = new DHT11Sensor(sensors[i], listener);
+                StringRequest dht11 = new DHT11Sensor(sensors[i], listener); // 요청하는 부분
                 dht11.setShouldCache(false); // 보통 같은 주소일 경우 캐시로 가져오는데, 그렇게 하지 않게 설정.
                 // 현재 우리는 늘 새로운 내용을 가져와야하기 때문
 
