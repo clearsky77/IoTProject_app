@@ -28,6 +28,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.android.volley:volley:1.1.1' // 서버와 연결 API
 
     implementation 'androidx.appcompat:appcompat:1.4.0'
     implementation 'com.google.android.material:material:1.4.0'
