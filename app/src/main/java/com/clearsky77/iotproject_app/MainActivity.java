@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Response.Listener<String> listener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) { // 받은 순간
-                        Log.d("태그","onResponse 진입");
+                        Log.d("태그", "onResponse 진입");
                         dialog.dismiss(); // 다이얼로그를 없애고
                         try {
                             JSONArray array = new JSONArray(response);
@@ -89,6 +90,52 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+    // On 클릭시
+    public void clickLedOnButton(View view) {
+
+        // 서버 응답 -> 콜백 리스너 실행됨
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    Toast.makeText(getApplicationContext(),
+                            "LED 켜짐:" + obj.get("led"), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        StringRequest led = new LEDSensor("on", listener);
+        led.setShouldCache(false);
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(led);
+    }
+
+
+    public void clickLedOffButton(View view) {
+        // 서버 응답 -> 콜백 리스너 실행됨
+        Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    Toast.makeText(getApplicationContext(),
+                            "LED 꺼짐:" + obj.get("led"), Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        StringRequest led = new LEDSensor("off", listener);
+        led.setShouldCache(false);
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        requestQueue.add(led);
+    }
+
 
     class Item {
         int temp, humidity;
