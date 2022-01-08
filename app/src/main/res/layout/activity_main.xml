@@ -13,13 +13,14 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="1"
             android:text="LED ON"
             android:onClick="clickLedOnButton"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="50"
+            android:layout_weight="1"
+            android:layout_marginStart="5dp"
             android:text="LED OFF"
             android:onClick="clickLedOffButton"/>
     </LinearLayout>
